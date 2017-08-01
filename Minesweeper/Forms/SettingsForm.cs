@@ -40,7 +40,7 @@ namespace Minesweeper
             Close();
         }
 
-        private void startButton_Click(object sender, EventArgs e)
+        private void okButton_Click(object sender, EventArgs e)
         {
             int width = int.Parse(widthTB.Text);
             int height = int.Parse(heightTB.Text);

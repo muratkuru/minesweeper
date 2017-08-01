@@ -11,17 +11,56 @@ namespace Minesweeper
             Board = new Board(width, height, mineCount);
 
             SetButtons(width, height);
+            SetEmojiButton();
+            SetFlagCountLabel();
         }
 
         private Board Board { get; set; }
 
         public List<Button> Buttons { get; set; }
 
+        public Button EmojiButton { get; set; }
+
+        public Label FlagCountLabel { get; set; }
+
         public Size GetFormSize()
         {
             int width = (Board.MatrixWidth + 1) * Constants.BUTTON_SIZE + 10;
-            int height = (Board.MatrixHeight + 1) * Constants.BUTTON_SIZE + 60;
+            int height = (Board.MatrixHeight + 1) * Constants.BUTTON_SIZE + 70;
             return new Size(width, height);
+        }
+
+        private void SetFlagCountLabel()
+        {
+            int flagCountLeft = GetFormSize().Width - 100;
+
+            FlagCountLabel = new Label
+            {
+                Name = "flagCountLbl",
+                Top = 10,
+                Left = flagCountLeft,
+                Text = "0",
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Tahoma", 12, FontStyle.Bold),
+                Image = Properties.Resources.Flag,
+                ImageAlign = ContentAlignment.MiddleLeft
+            };
+        }
+
+        private void SetEmojiButton()
+        {
+            int emojiLeft = GetFormSize().Width / 2 - Constants.BUTTON_SIZE;
+
+            EmojiButton = new Button
+            {
+                Name = "emojiBtn",
+                Width = Constants.BUTTON_SIZE,
+                Height = Constants.BUTTON_SIZE,
+                Left = emojiLeft,
+                Top = 7,
+                BackgroundImage = Properties.Resources.Smile,
+                BackgroundImageLayout = ImageLayout.Stretch
+            };
         }
 
         private void SetButtons(int width, int height)
@@ -41,7 +80,7 @@ namespace Minesweeper
                         Size = new Size(size, size),
                         Font = new Font("Tahoma", 12, FontStyle.Bold),
                         Tag = new Point(i, j)
-                    };
+                };
                     button.MouseUp += Button_Click;
                     Buttons.Add(button);
                 }
@@ -53,10 +92,9 @@ namespace Minesweeper
             Button clickedButton = sender as Button;
             Point point = (Point)clickedButton.Tag;
 
-            var cell = Board.Matrix[point.X, point.Y];
             if (e.Button == MouseButtons.Left)
                 OpenCell(point.X, point.Y);
-            else if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right)
                 SetFlag(point.X, point.Y);
 
             FinishControl();
@@ -64,15 +102,15 @@ namespace Minesweeper
 
         private void OpenCell(int x, int y)
         {
-            var button = Buttons.Find(find => ((Point)find.Tag).Equals(x, y));
-            var matrix = Board.Matrix[x, y];
+            var button = Buttons.Find(find => ((Point)find.Tag).EqualWith(x, y));
+            var cell = Board.Matrix[x, y];
 
-            if (!matrix.IsMined)
+            if (!cell.IsMined)
             {
-                if (matrix.IsEmpty && !matrix.IsOpened && !matrix.IsFlagged)
+                if (cell.IsEmpty && !cell.IsOpened && !cell.IsFlagged)
                 {
                     button.Enabled = false;
-                    Board.Matrix[x, y].IsOpened = true;
+                    cell.IsOpened = true;
 
                     foreach (var item in Board.Neighbors(x, y))
                         if (Board.LimitControl(item.X, item.Y))
@@ -80,11 +118,11 @@ namespace Minesweeper
                 }
                 else
                 {
-                    if (!matrix.IsFlagged)
+                    if (!cell.IsFlagged)
                     {
-                        button.Text = GetValue(x, y);
-                        button.ForeColor = Board.Matrix[x, y].GetColor();
-                        Board.Matrix[x, y].IsOpened = true;
+                        button.Text = cell.IsEmpty ? string.Empty : cell.MineCount.ToString();
+                        button.ForeColor = Constants.Colors[cell.MineCount];
+                        cell.IsOpened = true;
                     }
                 }
             }
@@ -94,37 +132,41 @@ namespace Minesweeper
 
         private void SetFlag(int x, int y)
         {
-            var button = Buttons.Find(find => ((Point)find.Tag).Equals(x, y));
-            bool isFlagged = Board.Matrix[x, y].IsFlagged;
-            bool isOpened = Board.Matrix[x, y].IsOpened;
+            var button = Buttons.Find(find => ((Point)find.Tag).EqualWith(x, y));
+            var cell = Board.Matrix[x, y];
 
-            if (!isOpened)
+            if (!cell.IsOpened)
             {
-                if (isFlagged)
+                if (cell.IsFlagged)
                 {
-                    button.Text = "";
-                    button.ForeColor = Color.Black;
-                    Board.Matrix[x, y].IsFlagged = false;
+                    button.Image = null;
+                    cell.IsFlagged = false;
+                    Board.FlagCount--;
                 }
                 else
                 {
-                    button.Text = "≈";
-                    button.ForeColor = Color.DarkGreen;
-                    Board.Matrix[x, y].IsFlagged = true;
+                    button.Image = Properties.Resources.Flag;
+                    button.ImageAlign = ContentAlignment.MiddleCenter;
+                    cell.IsFlagged = true;
+                    Board.FlagCount++;
                 }
             }
+            FlagCountLabel.Text = Board.FlagCount.ToString();
         }
 
         private void FailureGame()
         {
+            EmojiButton.BackgroundImage = Properties.Resources.Worried;
             foreach (var item in Buttons)
             {
                 var point = (Point)item.Tag;
-                item.Text = GetValue(point.X, point.Y);
-                item.ForeColor = Board.Matrix[point.X, point.Y].GetColor();
+                var cell = Board.Matrix[point.X, point.Y];
+                item.Text = cell.IsEmpty || cell.IsMined || cell.IsFlagged ? string.Empty : cell.MineCount.ToString();
+                item.Image = cell.IsFlagged ? Properties.Resources.Flag : (cell.IsMined ? Properties.Resources.Poop : null);
+                item.ImageAlign = ContentAlignment.MiddleCenter;
+                item.ForeColor = Constants.Colors[cell.MineCount];
                 item.MouseUp -= Button_Click;
             }
-            MessageBox.Show(Constants.FAILURE_MESSAGE, Constants.MESSAGE_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void SuccessfulGame()
@@ -132,7 +174,7 @@ namespace Minesweeper
             foreach (var item in Buttons)
                 item.MouseUp -= Button_Click;
 
-            MessageBox.Show(Constants.SUCCESSFUL_MESSAGE, Constants.MESSAGE_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            EmojiButton.BackgroundImage = Properties.Resources.Cool;
         }
 
         private void FinishControl()
@@ -146,32 +188,14 @@ namespace Minesweeper
             {
                 for (int j = 0; j < height; j++)
                 {
-                    if (Board.Matrix[i, j].IsFlagged || Board.Matrix[i, j].IsOpened)
+                    var cell = Board.Matrix[i, j];
+                    if (cell.IsFlagged || cell.IsOpened)
                         count++;
                 }
             }
 
             if(count == totalCell)
-            {
                 SuccessfulGame();
-            }
-        }
-
-        private string GetValue(int x, int y)
-        {
-            string value;
-            var matrix = Board.Matrix[x, y];
-
-            if (matrix.IsFlagged)
-                value = "≈";
-            else if (matrix.IsMined)
-                value = "x";
-            else if (matrix.IsEmpty)
-                value = string.Empty;
-            else
-                value = matrix.MineCount.ToString();
-
-            return value;
         }
     }
 }

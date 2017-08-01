@@ -18,10 +18,15 @@ namespace Minesweeper
             Game = new Game(width, height, minesCount);
             Size = Game.GetFormSize();
             cellPanel.Controls.Clear();
+            Controls.RemoveByKey("emojiBtn");
+            Controls.RemoveByKey("flagCountLbl");
 
             var buttons = Game.Buttons;
             foreach (var item in buttons)
                 cellPanel.Controls.Add(item);
+
+            Controls.Add(Game.EmojiButton);
+            Controls.Add(Game.FlagCountLabel);
         }
 
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)

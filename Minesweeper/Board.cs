@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 
 namespace Minesweeper
 {
@@ -20,6 +21,8 @@ namespace Minesweeper
         public static int MatrixHeight { get; set; }
 
         public static int MinesCount { get; set; }
+
+        public int FlagCount { get; set; }
 
         public Cell[,] Matrix { get; set; }
 
@@ -47,9 +50,12 @@ namespace Minesweeper
 
         private void CountMine(int x, int y)
         {
-            if (LimitControl(x, y) && !Matrix[x, y].IsMined)
+            if (LimitControl(x, y))
             {
-                Matrix[x, y].IncrementMineCount();
+                var cell = Matrix[x, y];
+
+                if(!cell.IsMined)
+                    cell.IncrementMineCount();
             }
         }
 
@@ -83,6 +89,18 @@ namespace Minesweeper
             yield return new Point(x + 1, y - 1);
             yield return new Point(x + 1, y);
             yield return new Point(x + 1, y + 1);
+        }
+
+        public bool IsNeighborsFlagAndMineCountEqual(int x, int y)
+        {
+            int count = 0;
+            foreach(var item in Neighbors(x, y))
+            {
+                if(LimitControl(item.X, item.Y))
+                    if (Matrix[item.X, item.Y].IsFlagged)
+                        count++;
+            }
+            return count == Matrix[x, y].MineCount;
         }
     }
 }

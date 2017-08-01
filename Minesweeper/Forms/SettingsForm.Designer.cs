@@ -33,7 +33,7 @@
             this.expertRB = new System.Windows.Forms.RadioButton();
             this.widthLabel = new System.Windows.Forms.Label();
             this.widthTB = new System.Windows.Forms.TextBox();
-            this.startButton = new System.Windows.Forms.Button();
+            this.okButton = new System.Windows.Forms.Button();
             this.heightLabel = new System.Windows.Forms.Label();
             this.heightTB = new System.Windows.Forms.TextBox();
             this.minesLabel = new System.Windows.Forms.Label();
@@ -45,10 +45,10 @@
             // 
             this.beginnerRB.AutoSize = true;
             this.beginnerRB.Checked = true;
-            this.beginnerRB.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.beginnerRB.Font = new System.Drawing.Font("Verdana", 10F);
             this.beginnerRB.Location = new System.Drawing.Point(12, 12);
             this.beginnerRB.Name = "beginnerRB";
-            this.beginnerRB.Size = new System.Drawing.Size(98, 22);
+            this.beginnerRB.Size = new System.Drawing.Size(88, 21);
             this.beginnerRB.TabIndex = 0;
             this.beginnerRB.TabStop = true;
             this.beginnerRB.Text = "Beginner";
@@ -58,10 +58,10 @@
             // intermediateRB
             // 
             this.intermediateRB.AutoSize = true;
-            this.intermediateRB.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.intermediateRB.Font = new System.Drawing.Font("Verdana", 10F);
             this.intermediateRB.Location = new System.Drawing.Point(12, 47);
             this.intermediateRB.Name = "intermediateRB";
-            this.intermediateRB.Size = new System.Drawing.Size(133, 22);
+            this.intermediateRB.Size = new System.Drawing.Size(115, 21);
             this.intermediateRB.TabIndex = 1;
             this.intermediateRB.Text = "Intermediate";
             this.intermediateRB.UseVisualStyleBackColor = true;
@@ -70,10 +70,10 @@
             // expertRB
             // 
             this.expertRB.AutoSize = true;
-            this.expertRB.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.expertRB.Font = new System.Drawing.Font("Verdana", 10F);
             this.expertRB.Location = new System.Drawing.Point(12, 82);
             this.expertRB.Name = "expertRB";
-            this.expertRB.Size = new System.Drawing.Size(78, 22);
+            this.expertRB.Size = new System.Drawing.Size(73, 21);
             this.expertRB.TabIndex = 2;
             this.expertRB.Text = "Expert";
             this.expertRB.UseVisualStyleBackColor = true;
@@ -82,74 +82,74 @@
             // widthLabel
             // 
             this.widthLabel.AutoSize = true;
-            this.widthLabel.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.widthLabel.Font = new System.Drawing.Font("Verdana", 10F);
             this.widthLabel.Location = new System.Drawing.Point(8, 127);
             this.widthLabel.Name = "widthLabel";
-            this.widthLabel.Size = new System.Drawing.Size(50, 18);
+            this.widthLabel.Size = new System.Drawing.Size(50, 17);
             this.widthLabel.TabIndex = 3;
             this.widthLabel.Text = "Width";
             // 
             // widthTB
             // 
-            this.widthTB.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.widthTB.Font = new System.Drawing.Font("Verdana", 10F);
             this.widthTB.Location = new System.Drawing.Point(69, 124);
             this.widthTB.Name = "widthTB";
-            this.widthTB.Size = new System.Drawing.Size(51, 26);
+            this.widthTB.Size = new System.Drawing.Size(51, 24);
             this.widthTB.TabIndex = 4;
             this.widthTB.Text = "9";
             // 
-            // startButton
+            // okButton
             // 
-            this.startButton.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startButton.Location = new System.Drawing.Point(126, 124);
-            this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(96, 26);
-            this.startButton.TabIndex = 5;
-            this.startButton.Text = "OK";
-            this.startButton.UseVisualStyleBackColor = true;
-            this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            this.okButton.Font = new System.Drawing.Font("Verdana", 10F);
+            this.okButton.Location = new System.Drawing.Point(126, 124);
+            this.okButton.Name = "okButton";
+            this.okButton.Size = new System.Drawing.Size(96, 26);
+            this.okButton.TabIndex = 5;
+            this.okButton.Text = "OK";
+            this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // heightLabel
             // 
             this.heightLabel.AutoSize = true;
-            this.heightLabel.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.heightLabel.Font = new System.Drawing.Font("Verdana", 10F);
             this.heightLabel.Location = new System.Drawing.Point(8, 159);
             this.heightLabel.Name = "heightLabel";
-            this.heightLabel.Size = new System.Drawing.Size(55, 18);
+            this.heightLabel.Size = new System.Drawing.Size(53, 17);
             this.heightLabel.TabIndex = 6;
             this.heightLabel.Text = "Height";
             // 
             // heightTB
             // 
-            this.heightTB.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.heightTB.Font = new System.Drawing.Font("Verdana", 10F);
             this.heightTB.Location = new System.Drawing.Point(69, 156);
             this.heightTB.Name = "heightTB";
-            this.heightTB.Size = new System.Drawing.Size(51, 26);
+            this.heightTB.Size = new System.Drawing.Size(51, 24);
             this.heightTB.TabIndex = 7;
             this.heightTB.Text = "9";
             // 
             // minesLabel
             // 
             this.minesLabel.AutoSize = true;
-            this.minesLabel.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.minesLabel.Font = new System.Drawing.Font("Verdana", 10F);
             this.minesLabel.Location = new System.Drawing.Point(8, 191);
             this.minesLabel.Name = "minesLabel";
-            this.minesLabel.Size = new System.Drawing.Size(50, 18);
+            this.minesLabel.Size = new System.Drawing.Size(47, 17);
             this.minesLabel.TabIndex = 8;
             this.minesLabel.Text = "Mines";
             // 
             // minesTB
             // 
-            this.minesTB.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.minesTB.Font = new System.Drawing.Font("Verdana", 10F);
             this.minesTB.Location = new System.Drawing.Point(69, 188);
             this.minesTB.Name = "minesTB";
-            this.minesTB.Size = new System.Drawing.Size(51, 26);
+            this.minesTB.Size = new System.Drawing.Size(51, 24);
             this.minesTB.TabIndex = 9;
             this.minesTB.Text = "10";
             // 
             // cancelButton
             // 
-            this.cancelButton.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cancelButton.Font = new System.Drawing.Font("Verdana", 10F);
             this.cancelButton.Location = new System.Drawing.Point(126, 156);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(96, 26);
@@ -162,13 +162,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(233, 228);
+            this.ClientSize = new System.Drawing.Size(233, 222);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.minesTB);
             this.Controls.Add(this.minesLabel);
             this.Controls.Add(this.heightTB);
             this.Controls.Add(this.heightLabel);
-            this.Controls.Add(this.startButton);
+            this.Controls.Add(this.okButton);
             this.Controls.Add(this.widthTB);
             this.Controls.Add(this.widthLabel);
             this.Controls.Add(this.expertRB);
@@ -190,7 +190,7 @@
         private System.Windows.Forms.RadioButton expertRB;
         private System.Windows.Forms.Label widthLabel;
         private System.Windows.Forms.TextBox widthTB;
-        private System.Windows.Forms.Button startButton;
+        private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Label heightLabel;
         private System.Windows.Forms.TextBox heightTB;
         private System.Windows.Forms.Label minesLabel;
